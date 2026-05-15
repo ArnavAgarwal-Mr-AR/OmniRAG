@@ -394,7 +394,11 @@ export default function App() {
     return () => { document.head.removeChild(el); };
   }, []);
 
+  const wakeupSent = useRef(false);
   useEffect(() => {
+    if (wakeupSent.current) return;
+    wakeupSent.current = true;
+    
     const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
     fetch(`${apiUrl}/api/v1/wakeup`).then(() => setIsBooting(false)).catch(() => setIsBooting(false));
   }, []);
