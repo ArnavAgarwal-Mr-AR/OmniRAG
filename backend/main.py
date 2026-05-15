@@ -32,13 +32,20 @@ from retrieval.vector_db import init_collections
 @app.on_event("startup")
 async def startup_event():
     # Initialize DB tables if they don't exist
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
-        print("Database tables verified/created.")
+    if engine:
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
+            print("Database tables verified/created.")
+    else:
+        print("Skipping DB table creation: engine not initialized.")
     
     # Initialize Qdrant collections
-    await init_collections()
-    print("Qdrant collections verified/created.")
+    from retrieval.vector_db import qdrant_client
+    if qdrant_client:
+        await init_collections()
+        print("Qdrant collections verified/created.")
+    else:
+        print("Skipping Qdrant init: client not initialized.")
 
 app.include_router(ingest_router)
 app.include_router(query_router)

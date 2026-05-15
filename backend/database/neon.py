@@ -20,21 +20,27 @@ if DATABASE_URL:
         DATABASE_URL = DATABASE_URL.replace("&channel_binding=require", "")
         DATABASE_URL = DATABASE_URL.replace("?channel_binding=require", "")
 
-engine = create_async_engine(
-    DATABASE_URL,
-    echo=False,
-    pool_size=5,
-    max_overflow=10,
-    pool_pre_ping=True,    # Checks connection liveness before checking it out
-    pool_recycle=300       # Recycles connections every 5 minutes
-)
+engine = None
+if DATABASE_URL:
+    engine = create_async_engine(
+        DATABASE_URL,
+        echo=False,
+        pool_size=5,
+        max_overflow=10,
+        pool_pre_ping=True,
+        pool_recycle=300
+    )
 
-AsyncSessionLocal = async_sessionmaker(
-    engine, class_=AsyncSession, expire_on_commit=False
-)
+AsyncSessionLocal = None
+if engine:
+    AsyncSessionLocal = async_sessionmaker(
+        engine, class_=AsyncSession, expire_on_commit=False
+    )
 
 Base = declarative_base()
 
 async def get_db():
+    if not AsyncSessionLocal:
+        raise Exception("Database session local not initialized. Check POSTGRES_URL.")
     async with AsyncSessionLocal() as session:
         yield session
