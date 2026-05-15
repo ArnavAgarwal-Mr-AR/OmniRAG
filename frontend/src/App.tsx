@@ -852,7 +852,7 @@ export default function App() {
 
         </main>
       </div>
-    </div>
+      {/* Vercel Monitoring */}
       <Analytics />
       <SpeedInsights />
     </div>
