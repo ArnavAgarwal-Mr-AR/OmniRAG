@@ -1,0 +1,55 @@
+# --- Common ---
+node_modules
+dist
+dist-ssr
+build
+*.log
+.DS_Store
+.env
+.env.*
+!.env.example
+*.local
+
+# --- IDEs ---
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# --- Frontend (React/Vite) ---
+coverage
+.eslintcache
+.stylelintcache
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- Backend (Python/FastAPI) ---
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+venv/
+.venv/
+env/
+instance/
+.webassets-cache
+
+# --- OS/System ---
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# --- App Specific ---
+/backend/storage/*
+!/backend/storage/.gitkeep
+/backend/qdrant_dump.json
+/tmp/
