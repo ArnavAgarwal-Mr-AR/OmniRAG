@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { UploadCloud, Send, FileText, Image as ImageIcon, PlayCircle, Trash2, Sparkles, Zap, ChevronRight } from 'lucide-react';
 import { useDropzone } from 'react-dropzone';
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import logo from './assets/logo.png';
 import userAvatar from './assets/user-avatar.png';
 import aiAvatar from './assets/ai-avatar.png';
@@ -850,6 +852,9 @@ export default function App() {
 
         </main>
       </div>
+    </div>
+      <Analytics />
+      <SpeedInsights />
     </div>
   );
 }
